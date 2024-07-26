@@ -27,9 +27,6 @@ class LatLon extends StatelessWidget {
             labelText: "Longitude",
           ),
         ),
-        const Placeholder(
-          color: Colors.red,
-        ),
       ],
     );
   }
