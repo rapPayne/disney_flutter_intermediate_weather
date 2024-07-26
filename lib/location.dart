@@ -29,6 +29,7 @@ class _LocationState extends State<Location> {
         });
       });
     });
+
     super.initState();
   }
 

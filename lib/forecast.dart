@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/weather_card.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
@@ -22,8 +23,6 @@ class _ForecastState extends State<Forecast> {
     longitude = foo['longitude'];
     latitude = foo['latitude'];
     //var {'longitude': double? longitude, 'latitude': double? latitude} = foo;
-    print(latitude);
-    print(longitude);
     var url = 'https://api.weather.gov/points/$latitude,$longitude';
     var uri = Uri.parse(url);
 
@@ -49,12 +48,21 @@ class _ForecastState extends State<Forecast> {
 
   @override
   Widget build(BuildContext context) {
-    print(forecast);
+    //print(forecast);
+    if (forecast == null) return const Text('loading');
+    var periods = (forecast['properties']['periods'] as List<dynamic>)
+        .map((p) => p as Map<String, dynamic>);
+    print(periods);
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Forecast'),
+      appBar: AppBar(
+        title: const Text('Forecast'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: periods.map((p) => WeatherCard(weatherData: p)).toList(),
         ),
-        body: const Placeholder());
+      ),
+    );
   }
 }
 /*
